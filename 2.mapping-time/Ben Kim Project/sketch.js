@@ -1,21 +1,40 @@
+var x = 225
+var y = 50
+var maxWidth = 225
+var maxHeight = 550
+var hourheight = 20
+var minsheight = 12
+var secwidth = 6
+
+var discrete = false //only else part is running
 
 function setup() {
   // set the width & height of the sketch
   createCanvas(450, 600);
+}
+
+function draw() {
   background(255)
-
-  // print the time to the console once at the beginning of the run. try opening up the
-  // web inspector and poking around to see the various values the clock function gives you
-  print('starting time:', clock())
-
-  fill (47,22,82)
   noStroke()
   
-  rect (225,50,-206.25,20)
-  rect (225,50,191.25,12)
-  rect (222,50,6,45.83)
+  var now = clock()
+   if (discrete){
+    var hourWidth = map(now.hour, 1,12, 0,-maxWidth)
+    var minsWidth = map(now.min,  0,60, 0,maxWidth)
+    var secsheight = map(now.sec,  0,60, 0,maxHeight)
+   }
+   else{
+    hourWidth = -maxWidth * now.progress.day
+    minsWidth = maxWidth * now.progress.hour
+    secsheight = maxHeight * now.progress.min
+  }
 
+  fill(47,22,82)
+  rect(x, y, minsWidth, minsheight)
 
+  fill(47,22,82)
+  rect(x, y, hourWidth, hourheight)
 
-
+  fill(47,22,82)
+  rect(x, y, secwidth, secsheight)
 }
